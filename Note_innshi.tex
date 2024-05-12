@@ -1,0 +1,481 @@
+\documentclass[a4paper,12pt, oneside, openany]{jsbook}
+
+\makeatletter
+
+\def\@thesis{卒業論文}
+\def\id#1{\def\@id{#1}}
+\def\department#1{\def\@department{#1}}
+
+\def\@maketitle{
+\begin{center}
+{\huge \@thesis \par} %修士論文と記載される部分
+\vspace{10mm}
+{\LARGE\bf \@title \par}% 論文のタイトル部分
+\vspace{20mm}
+{\Large \@department \par} % 所属部分
+{\Large 学籍番号　\@id \par} % 学籍番号部分
+{\Large \@author　\par}% 氏名 
+\vspace{10mm}
+{\Large \@date\par} % 提出年月日部分
+\end{center}
+\par\vskip 1.5em
+}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{bm}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{verbatim}
+\usepackage{wrapfig}
+\usepackage{ascmac}
+\usepackage{makeidx}
+\usepackage{amsmath,amssymb}
+\usepackage{cases}
+\usepackage{braket}
+\usepackage{float}
+\usepackage{color}
+\usepackage{txfonts}
+%\usepackage[setpagesize=false, dvipdfmx]{hyperref}
+\belowcaptionskip=-8pt
+\setlength{\voffset}{-1.04cm}
+\setlength{\textheight}{35\baselineskip}
+\addtolength{\textheight}{\topskip}
+\pagestyle{headings}
+\renewcommand{\figurename}{Fig.~}
+\renewcommand{\tablename}{Table.~}
+\makeatother
+
+%\renewcommand{\contentsname}{Contents} % contentsの英語表示
+%\renewcommand{\prechaptername}{Chapter~}
+%\renewcommand{\postchaptername}{} % chapterの英語表示
+
+
+\title{院試用Note}
+\date{\today}
+\author{宮坂雄介\\}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\mbox{}\newpage
+\newpage
+% 目次の表示
+\pagenumbering{roman}
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+% 本文
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\newpage
+\chapter{古典力学}
+\section{解析力学}
+\subsection{仮想変位}
+成分$i$について外力$F_{i}$、束縛力$R_{i}$とした時の運動方程式は以下の通りになる。
+\begin{eqnarray}
+  m\ddot{x}_{i}=F_{i}+R_{i}
+\end{eqnarray}
+ここで束縛条件を崩さないような変位$\delta x_{i}$を考えると
+\begin{eqnarray}
+  \sum_{i}R_{i}\delta x_{i}=\sum_{i}(m\ddot{x}_{i}-F_{i})\delta x_{i}=0
+\end{eqnarray}
+
+\newpage
+\chapter{統計力学}
+
+\section{統計力学の基本的仮定}
+\subsection{ボルツマン(Boltzmann)の原理}
+巨視的なエネルギーが$E$である孤立系は微視的に見ると$\Delta E$の揺らぎがあると考えられる。以下に述べる等重率の仮定に従う微視的な集合を小正準集団といい、この確率分布により巨視的な示量変数のエントロピー$S$は
+\begin{eqnarray}
+  \label{boltzmann}
+  S(E) = k_{\text{B}} \ln W(E;\Delta E)
+\end{eqnarray}
+で与えられる。$k_{\text{B}}$はボルツマン定数、$W(E;\Delta E)$は微視的状態数を表す。
+\subsection{等重率の原理}
+あるエネルギーで取り得る各微視的状態は全て同じ確率で起こると仮定する。これによりエネルギーが$E$となる確率$p(E)$は
+\begin{eqnarray}
+  p(E)\propto W(E;\Delta E)
+\end{eqnarray}
+となる。
+\section{確率モデル}
+\subsection{小正準分布(microcanonical distribution)}
+ある孤立系のエネルギーが$E$で$\Delta E$の幅で揺らぐとすると、上記の(\ref{boltzmann})のような関係が成立する。ここで$\Delta E=0$とするとエネルギー固有状態が1つに定まってしまうため、量子論において(\ref{boltzmann})の関係式が破綻してしまう。
+
+\subsection{正準分布(canonical distribution)}
+系$A$とその周りの大きな熱浴$B$からなる孤立系$A+B$を考える。全エネルギー$E_{\rm{tot}}$で一定となり、系$A$のエネルギーが$E_i$の時、熱浴$B$のエネルギーはおよそ$E_{\rm{tot}}-E_i$となる\footnote{わずかな相互作用エネルギーは無視できる。}。この時の熱浴$B$の微視的状態数は$W(E_{\rm{tot}}-E_i;\Delta E)$と表せる。そうすると系$A$が微視的状態$i$にいる確率$P_i$は等重率の仮定とBoltzmanの原理により
+\begin{eqnarray}
+  \begin{split}
+    P_i&\propto& W_B(E_{\rm{tot}}-E_i;\Delta E) = \exp\left[\frac{1}{k_{\text{B}}}S_B(E_{\rm{tot}}-E_i)\right] \\
+  &\approx & \exp\left[\frac{1}{k_{\text{B}}} \left\{S_B(E_{\rm{tot}})-\left.\frac{\partial S(E)}{\partial E
+  }\right|_{E=E_{\rm{tot}}}   E_i\right\} \right] \\
+  &=&\exp\left[\frac{1}{k_{\text{B}}} \left\{S_B(E_{\rm{tot}})-\frac{1}{T} E_i\right\} \right]\approx \exp\left[-\frac{E_i}{k_{\text{B}}T} \right]
+  \end{split}
+\end{eqnarray}
+となる。ここでの$T$は系$A$と熱浴$B$の温度である。$\beta=1/(kT)$と表記し、確率を合計すると1になることから
+\begin{eqnarray}
+  P_i = e^{-\beta E_i}/Z ,\;但しZ(T,V,N)=\sum_{i}  e^{-\beta E_i}
+\end{eqnarray}
+となる。これを正準分布といい、温度$T$で閉じた系が微視的状態$i$をとる確率である。$Z$を正準分配関数といい、内部エネルギーはエネルギーの平均値であるので
+\begin{eqnarray}
+  \left\langle E_i\right\rangle  =\sum _i E_i P_i=\frac{1}{Z} \sum_i E_i e^{-\beta E_i}=-\frac{1}{Z} \frac{\partial}{\partial \beta}Z =-\frac{\partial}{\partial \beta} \ln Z(T,V,N)
+\end{eqnarray}
+となり、定積熱容量は
+\begin{eqnarray}
+  \begin{split}
+    C_V(T,V,N) &=\left.\frac{\partial \left\langle E_i\right\rangle}{\partial T}\right)_{V,N}= \frac{1}{k_{\text{B}}T^2} \frac{\partial^2}{\partial \beta^2}\ln Z(T,V,N)=\frac{1}{k_{\text{B}}T^2} \left(\frac{1}{Z}\frac{\partial^2 Z}{\partial \beta^2}-\frac{1}{Z^2}\left( \frac{\partial Z}{\partial \beta}\right)^2\right) \\
+    &=\frac{1}{k_{\text{B}}T^2} \left(\left\langle E_i^2\right\rangle -\left\langle E_i \right\rangle^2\right)=\frac{1}{k_{\text{B}}T^2} \left\langle \left(E_i-\left\langle E_i\right\rangle \right)^2\right\rangle
+  \end{split}
+\end{eqnarray}
+となり、これはゆらぎ(標準偏差)と応答の間に静的線形応答関係があることを示している。\\
+　系$A$の状態密度$D_A$を使うと正準分配関数$Z(T,V,N)$は
+\begin{eqnarray}
+  \label{seijun}
+  \begin{split}
+    Z(T,V,N)&=\int dE^{'} e^{-\beta E^{'}}D_A(E^{'})=\int dE^{'} e^{-\beta E^{'}}W_A(E^{'},\Delta E)/{\Delta E}\\
+    &=\int dE^{'} e^{-\beta E^{'}}e^{S_A(E^{'})/k_{\text{B}}}/{\Delta E} 
+  \end{split}
+\end{eqnarray}
+となり、$\left\{-\beta E^{'} + S_A(E^{'})/k_{\text{B}}\right\}$が最大となる時、つまり
+\begin{eqnarray}
+  \frac{\partial S_A(E^{'})}{\partial E^{'}}=\frac{1}{T}
+\end{eqnarray}
+となる時の値を使って近似できる。この時のエネルギーは平衡状態時の内部エネルギー$U$とできるので
+\begin{eqnarray}
+  Z(T,V,N)\approx (\text{constant}) \times e^{-\beta F(T,V,N)}
+\end{eqnarray}
+となり、粒子数が莫大の系では対数をとると$\ln (\rm{constant})$は無視できるので
+\begin{eqnarray}
+  \label{canonical bridge}
+  F = -k_{\text{B}}T \ln Z
+\end{eqnarray}
+とできる。
+\subsection{大正準分布(grand canonical distribution)}
+熱浴や粒子浴などによってエネルギーだけでなく粒子のやりとりもできる系を考える\footnote{系は開いているという。}。系の微視的状態$i$と全体の粒子数をそれぞれ$N_i,N_{\rm{tot}}$として、正準分布と同様に環境の微視的状態数を考えることで系が微視的状態$i$にいる確率を表すと
+\footnotesize
+\begin{eqnarray}
+  \begin{split}
+    P_i &\propto W_B(E_{\rm{tot}}-E_i,N_{\rm{tot}}-N_i;\bigtriangleup E) = \exp\left[\frac{1}{k_{\text{B}}}S_B(E_{\rm{tot}}-E_i,N_{\rm{tot}}-N_i)\right] \\
+    &\approx  \exp\left[\frac{1}{k_{\text{B}}} \left\{S_B(E_{\rm{tot}},N_{\rm{tot}})-E_i\left.\frac{\partial S(E,N)}{\partial E
+  }\right|_{E=E_{\rm{tot}},N=N_{\rm{tot}}} -N_i\left.\frac{\partial S(E,N)}{\partial N
+  }\right|_{E=E_{\rm{tot}},N=N_{\rm{tot}}} \right\} \right] \\
+  \end{split}
+\end{eqnarray}
+\normalsize
+となり、熱力学の関係から
+\begin{eqnarray}
+  P_i=e^{-\beta (E_i-\mu N_i)}/\Xi,但し\;\Xi (T,V,\mu)= \sum_i e^{-\beta (E_i-\mu N_i)}
+ \end{eqnarray}
+と表せる。これを大正準分布といい、温度$T$、化学ポテンシャル$\mu$で平衡にある開いた系が微視的状態$i$をとる確率である。(\ref{seijun})と同様に
+
+\begin{eqnarray}
+  \Omega = -k_{\text{B}}T \ln \Xi 
+\end{eqnarray}
+\subsection{T-p分布}
+熱浴や圧力維持装置などによって温度$T$や圧力$p$が一定の状態で使われ、bridge equationは以下の通りになる。
+\begin{eqnarray}
+  G = -k_{\text{B}}T \ln Y
+\end{eqnarray}
+
+\subsection{磁性体の統計力学}
+
+\section{一成分流体の古典統計力学}
+\subsection{6N次元位相空間}
+$N$個の同種の質点でできた流体において、孤立系の微視的状態は$N$個の質点の位置と運動量で指定できる。この位置・運動量を$6N$次元空間の一点で表せる空間を$6
+N$次元位相空間といい、位置を$q_1,q_2,\cdot \cdot \cdot ,q_{3N}$、運動量を$p_1,p_2,\cdot \cdot \cdot ,p_{3N}$で表したときの状態にある系のエネルギーは
+\begin{eqnarray}
+  \varepsilon(q_1,\cdot \cdot \cdot ,p_{3N})\equiv  \sum_{j = 1}^{3N} \frac{p_j^2}{2m}+u(q_1,\cdot \cdot \cdot ,q_{3N}) 
+\end{eqnarray}
+と書ける。
+\subsection{ミクロカノニカル分布やカノニカル分布の適用}
+ミクロカノニカル分布において微視的状態の数は以下のように考える。
+\begin{eqnarray}
+  \label{6dmicro}
+  W(E;\Delta E) = \frac{1}{N ! h^{3N}} \int_{E\leq \varepsilon \leq E+\Delta E} dq_1\cdots dp_{3N}
+\end{eqnarray}
+(\ref{6dmicro})の右辺の$h^{3N}$は、右辺と左辺の次元を揃えるために必要である。量子力学において不確定性原理から$6N$次元位相空間の1点で指定できる状態を取らないので、その代わりに体積が$h^{3N}$の微小領域を一つ分として対応させている。(\ref{6dmicro})の右辺の$N!$については、量子力学では同種量子を弁別不能として微視的状態を数える必要があるので、粒子の入れ替えの場合の数で割っている。これによりエントロピーの示量性との整合性が保たれる。\\
+　正準分布では確率を
+\begin{equation}
+  P(q_1.\cdots ,p_{3N}) =\frac{1}{Z(T,V,N)}\frac{e^{-\beta \varepsilon(q_1.\cdots ,p_{3N})}}{h^{3N}N!}
+\end{equation}
+として
+\begin{eqnarray}
+  Z(T,V,N) = \frac{1}{h^{3N}N!}\int dq_1 \cdots dp_{3N} \;e^{-\beta \varepsilon(q_1.\cdots ,p_{3N})}
+\end{eqnarray}
+となる。(\ref{canonical bridge})からHelmholtz自由エネルギーが与えられる。ある一方向成分の運動エネルギーの平均値$\left\langle p_i^2/2m\right\rangle$を求めると
+\begin{eqnarray}
+  \begin{split}
+    \left\langle \frac{p_i^2}{2m}\right\rangle &= \frac{1}{h^{3N}N!}\int dq_1 \cdots dp_{3N} \;\frac{p_i^2}{2m}e^{-\beta \varepsilon(q_1.\cdots ,p_{3N})}/Z\\
+    &=\frac{\int dp_i  \frac{p_i^2}{2m} e^{-\beta \frac{p_i^2}{2m}}}{\int dp_i e^{-\beta \frac{p_i^2}{2m}}}=-\frac{\partial}{\partial \beta} \ln \left(\int dp_i e^{-\beta \frac{p_i^2}{2m}} \right) =-\frac{\partial}{\partial \beta}\ln \left(\sqrt{\frac{2m\pi}{\beta}}\right)\\
+    &=\frac{1}{2\beta}=\frac{k_\text{B}T}{2}
+  \end{split}
+\end{eqnarray}
+となるので全ての運動エネルギーの平均値は$\frac{3}{2}Nk_\text{B}T$となる。
+
+\section{相転移、臨界現象}
+\subsection{Ising Model}
+強磁性体の物質の結晶中の原子が格子点上に固定され、それぞれ不対電子を持つとしてスピンの自由度のみを考える。各格子点$i$のスピン変数を$s_i$とすれば系のエネルギー固有状態は$(s_1,\cdots ,s_N)$で指定できるので、エネルギーはこのスピン配位$2^N$個通り全て考慮し
+\begin{eqnarray}
+  E(s_1,\cdots ,s_N) =-J\sum_{(i,j)}s_i s_j -\mu H \sum_{i=1}^N s_i
+\end{eqnarray}
+と表せる。ここでの$J(>0)$は交換相互作用定数で、$H$は外部磁場、$\mu(>0)$はスピンひとつの磁気モーメントである。右辺第一項の和は互いに隣り合うげ格子点の組$(i,j)$についてとる。相互作用に関わる項を見ると$s_i,s_j$が揃っている状態の時はエネルギーが下がって安定となっていることから、互いにスピンを揃えようとする効果があり、強磁性体の特徴を反映している。\\
+　平均場近似において、最近接格子点の数を$\zeta$とすると
+\begin{eqnarray}
+  E(s_1,\cdots ,s_N) =-(J \zeta \langle s_k \rangle  +\mu H )\sum_{i=1}^N s_i
+\end{eqnarray}
+のように近似できる\footnote{$s_i s_j$を$(s_i-\langle s_i \rangle )(s_j-\langle s_j \rangle )+s_i \langle s_j \rangle+s_j \langle s_i \rangle- \langle s_i \rangle \langle s_j \rangle$と書き換えてこの第一項が小さいとして無視し、定数項もエネルギー基準をずらすだけなので無視できる。}。ここでスピン変数の期待値$\langle s_k \rangle$を$\psi $とおくと、canonical分布の分配関数は
+\begin{eqnarray}
+  \begin{split}
+    Z(T,H) &= \sum_{(s_1,\cdots ,s_N)}\exp\left\{\beta (J\zeta \psi +\mu H)\sum_{i=1}^N s_i\right\} \\
+  &=\left(\exp\left\{\beta (J\zeta \psi +\mu H)\right\}+\exp\left\{-\beta (J\zeta \psi +\mu H)\right\}\right)^N\\
+  &=(2\cosh \left\{\beta (J\zeta \psi +\mu H)\right\} )^N
+  \end{split}
+\end{eqnarray}
+となり、各熱力学関数を表現できる。総磁気分極は
+\begin{eqnarray}
+  \mathcal{M}  = -\frac{\partial F(T,H)}{\partial H}= Nk_{\text{B}}T\cdot \beta \mu \tanh \left\{\beta (J\zeta \psi +\mu H)\right\} =N\mu \tanh \left\{\beta (J\zeta \psi +\mu H)\right\}
+\end{eqnarray}
+となり、これは$N \mu \psi$とも表せることから
+\begin{eqnarray}
+  \psi =\tanh \left\{\beta (J\zeta \psi +\mu H)\right\}
+\end{eqnarray}
+という自己無撞着方程式が得られた。この解を求めることでスピンひとつあたりの磁気分極$\psi(T,H)$を求めることができる。
+\subsection{GLW modelでの最尤値}
+Ising Modelを少し粗くしたGLW Modelを考え、確率密度関数は秩序変数$\phi$を用いて
+\begin{eqnarray}
+  \text{Prob}\left[\phi\right]\propto \exp\left[-\int_V d\boldsymbol{r} \left\{\frac{1}{2} m\phi^2 +\frac{1}{4!}\lambda \phi^4+\frac{1}{2} a^2 \left\lvert \nabla  \phi\right\rvert^2-J\phi \right\} \right] 
+\end{eqnarray}
+とできる。ここで$m$は温度$T$の一次関数となり、磁性体で考えると$\phi(\boldsymbol{r})$は局所のスピンの合計、$J(\boldsymbol{r})$は局所での磁場に比例する項となる。積分部分を有効ハミルトニアン$\mathcal{H} (\phi)$としてこれが最小になる時を考える。\\
+$(i)$外場$J(\boldsymbol{r})$が一様に0の時\\
+$\phi$は一様であり
+\begin{eqnarray}
+  m\phi+\frac{1}{6}\lambda \phi^3 = 0
+\end{eqnarray}
+つまり
+\begin{equation}  \label{eq: cases f}
+  \phi=
+      \begin{cases}
+          0  &   \text{($m>0$の時)}  \\
+          \pm \sqrt{-\frac{6m}{ \lambda}}      &   \text{($m<0$の時)}
+      \end{cases}
+  \end{equation}
+となり、以下に示すように$m=0$を境界にした温度以下で強磁性体になると考えられる。\\
+$(ii)$外場$J(\boldsymbol{r})$が一様でない時\\
+$\mathcal{H} \left[\phi\right] $を汎関数として停留させることを考える。
+\begin{eqnarray}
+\begin{split}
+  \mathcal{H} \left[\phi+\delta \phi\right]-\mathcal{H} \left[\phi\right]&=\int_V d \boldsymbol{r} \left[ m\phi \delta \phi +\frac{1}{6}\lambda \phi^3 \delta \phi-J\delta \phi \right.\\
+  &\left. +\frac{1}{2} a^2 \left\{(\nabla  \phi+\nabla  \delta \phi)\cdot (\nabla  \phi+\nabla \delta \phi)-\nabla \phi \cdot \nabla \phi \right\} \right] +(高次微小項)\\
+  &=\int_V d \boldsymbol{r} \left( m\phi \delta \phi +\frac{1}{6}\lambda \phi^3 \delta \phi-J\delta \phi 
+  +a^2 \nabla \delta \phi \cdot \nabla \phi \right) +(高次微小項) \\
+  &=\int_V d \boldsymbol{r} \left( m\phi \delta \phi +\frac{1}{6}\lambda \phi^3 \delta \phi-J\delta \phi 
+  +a^2 \nabla (\delta \phi \cdot \nabla \phi)-a^2 \delta \phi \Delta \phi \right) +(高次微小項)\\
+  &=\int_V d \boldsymbol{r} \left( m\phi +\frac{1}{6}\lambda \phi^3 
+  -a^2  \Delta \phi -J \right)\delta \phi +(高次微小項)
+\end{split}
+\end{eqnarray}
+となり、$\mathcal{H} \left[\phi\right]$を停留させる$\phi$は
+\begin{eqnarray}
+  m\phi +\frac{1}{6}\lambda \phi^3 -a^2  \Delta \phi -J=0
+\end{eqnarray}
+を満たし、この最尤値を平均値とみなせる時、$\phi = \left\langle \phi\right\rangle $として
+\begin{eqnarray}
+  m\left\langle \phi(\boldsymbol{r})\right\rangle +\frac{1}{6}\lambda \left\langle \phi(\boldsymbol{r})\right\rangle^3 -a^2  \Delta \left\langle \phi(\boldsymbol{r})\right\rangle  =J(\boldsymbol{r})
+\end{eqnarray}
+となり、両辺を$J(\boldsymbol{r}')$で微分すると
+\begin{eqnarray}
+  \label{応答関数の微分方程式}
+  m\frac{\delta \left\langle \phi(\boldsymbol{r})\right\rangle}{\delta J(\boldsymbol{r}')} +\frac{1}{2} \lambda \left\langle \phi(\boldsymbol{r})\right\rangle^2 \frac{\delta \left\langle \phi(\boldsymbol{r})\right\rangle}{\delta J(\boldsymbol{r}')}-a^2 \Delta \frac{\delta \left\langle \phi(\boldsymbol{r})\right\rangle}{\delta J(\boldsymbol{r}')} =\delta(\boldsymbol{r}-\boldsymbol{r}')
+\end{eqnarray}
+となり、磁性体における応答関数として磁化率の関わる微分方程式が得られた。
+\subsection{静的線形応答}
+分配関数を
+\begin{eqnarray}
+  Z\left[J\right] =\int \mathcal{D} \phi \exp \left[-\mathcal{H}_0\left[\phi\right]+ \int d\boldsymbol{r} J(\boldsymbol{r})\phi (\boldsymbol{r})\right] 
+\end{eqnarray}
+とおくと\footnote{$\mathcal{H}_0$は外場が一様の時の有効ハミルトニアンとなる。}
+\begin{eqnarray}
+  \begin{split}
+    Z\left[J+\delta J\right]-Z\left[J\right]&=\int \mathcal{D}\phi \left(e^{\int d\boldsymbol{r} \delta J(\boldsymbol{r})\phi(\boldsymbol{r})}-1\right) e^{-\mathcal{H}_0\left[\phi\right]+ \int d\boldsymbol{r} J(\boldsymbol{r})\phi (\boldsymbol{r})}\\
+    &=\int \mathcal{D}\phi \left(\int d\boldsymbol{r}\delta  J (\boldsymbol{r})\phi(\boldsymbol{r})+\frac{1}{2!}\left(\int d\boldsymbol{r}\delta  J (\boldsymbol{r})\phi(\boldsymbol{r})\right)^2+ \cdots\right) e^{-\mathcal{H}\left[\phi\right]}\\
+    &=\int d\boldsymbol{r}\delta J (\boldsymbol{r}) \left\langle \phi (\boldsymbol{r})\right\rangle  Z\left[J\right] +\frac{1}{2} \int d\boldsymbol{r} \int d\boldsymbol{r}' \delta J(\boldsymbol{r}) \delta J(\boldsymbol{r}') \left\langle \phi (\boldsymbol{r})\phi (\boldsymbol{r}')\right\rangle Z\left[J\right] +\cdots
+  \end{split}
+\end{eqnarray}
+となり、
+\begin{eqnarray}
+  \frac{\delta Z\left[J\right]}{\delta J(\boldsymbol{r})} =Z\left[J\right] \left\langle \phi (\boldsymbol{r})\right\rangle ,\frac{\delta ^2 Z\left[J\right]}{\delta J(\boldsymbol{r}) \delta J(\boldsymbol{r}')} = Z\left[J\right]\left\langle \phi (\boldsymbol{r})\phi (\boldsymbol{r}')\right\rangle
+\end{eqnarray}
+これより
+\begin{eqnarray}
+  \label{応答関数の式変形}
+  \begin{split}
+    \frac{\delta \left\langle \phi (\boldsymbol{r})\right\rangle}{\delta J(\boldsymbol{r}')}&= \frac{\delta ^2 }{\delta J(\boldsymbol{r}) \delta J(\boldsymbol{r}')} \ln Z\left[J\right] = \frac{\delta }{\delta J(\boldsymbol{r}) } \frac{1}{Z\left[J\right]} \frac{\delta Z\left[J\right]}{\delta J(\boldsymbol{r}')} \\
+    &=-\frac{1}{Z\left[J\right]^2} \frac{\delta Z\left[J\right]}{\delta J(\boldsymbol{r})}\frac{\delta Z\left[J\right]}{\delta J(\boldsymbol{r}')}+ \frac{1}{Z\left[J\right]} \frac{\delta ^2 Z\left[J\right]}{\delta J(\boldsymbol{r}) \delta J(\boldsymbol{r}')}\\
+    &=-\left\langle \phi (\boldsymbol{r})\right\rangle \left\langle \phi (\boldsymbol{r}')\right\rangle +\left\langle \phi (\boldsymbol{r})\phi (\boldsymbol{r}')\right\rangle \\
+    &=\left\langle (\phi (\boldsymbol{r})-\left\langle \phi (\boldsymbol{r})\right\rangle)(\phi (\boldsymbol{r}')-\left\langle \phi (\boldsymbol{r}')\right\rangle)\right\rangle =C(\boldsymbol{r}-\boldsymbol{r}')
+  \end{split}
+\end{eqnarray}
+となる。応答関数を$\chi (\boldsymbol{r}-\boldsymbol{r}')=\frac{\delta \left\langle \phi (\boldsymbol{r})\right\rangle}{\delta J(\boldsymbol{r}')}$で定義すると\footnote{$J=\beta H$として$\chi (\boldsymbol{r}-\boldsymbol{r}')=\frac{\delta \left\langle \phi (\boldsymbol{r})\right\rangle}{\delta H(\boldsymbol{r}')}$で定義することもある。}、(\ref{応答関数の式変形})から$(応答関数)=(相関関数)$となり、このことを静的線形関係という。
+\subsection{相関距離}
+相関関数または、応答関数の特徴的な長さを相関距離$\xi$という。$J$を一様とすると$\left\langle \phi (\boldsymbol{r})\right\rangle $を一様となり$\left\langle \phi\right\rangle $として(\ref{応答関数の微分方程式})の両辺を$\boldsymbol{r}-\boldsymbol{r}'$を$\boldsymbol{r}$と置き換えてFourier変換すると
+\begin{eqnarray}
+  \int_V d\boldsymbol{r} e^{-i \boldsymbol{k}\cdot \boldsymbol{r}}\left(m \chi (\boldsymbol{r})+\frac{1}{2} \lambda \left\langle \phi\right\rangle^2 \chi (\boldsymbol{r}) +a^2 k^2 \chi (\boldsymbol{r}) \right) =1
+\end{eqnarray}
+から
+\begin{eqnarray}
+  \widehat{\chi }(\boldsymbol{k})=\widehat{C}(\boldsymbol{k})=\frac{1}{a^2(k^2+ \xi^{-2})}  ,\xi =\sqrt{\frac{a^2}{m+\frac{1}{2}\lambda\left\langle \phi\right\rangle^2 }} 
+\end{eqnarray}
+が得られ\footnote{Orstein-Zernicke型と呼ぶ。}、逆Fourier変換すると
+\begin{eqnarray}
+  \chi (\boldsymbol{r})=\frac{1}{(2\pi)^3}\int d\boldsymbol{k} \frac{1}{a^2(k^2+ \xi^{-2})} e^{i\boldsymbol{k}\cdot \boldsymbol{r}}= \begin{cases}
+    \frac{1}{4\pi a^2 r }e^{-r/\xi} &   \text{($m\neq 0$の時)}  \\
+    \frac{1}{4\pi a^2 r }     &   \text{($m=0,H=0$の時)}
+\end{cases}
+\end{eqnarray}
+となる。
+\subsection{実際を考えるための繰り込み群による粗視化}
+実際の確率分布では$m=0$付近ではpeakが平坦になるので最尤値を平均値とみなすことができない。このためRenormalized local functional theoryにより粗視化することで得られた確率分布を用いる。新たに得られた有効ハミルトニアン$\mathcal{H}_{\text{R}J}\left[\phi\right] $は元々のハミルトニアンの積分範囲を相関距離$\xi$程度まで下げることにより
+\begin{eqnarray}
+  \mathcal{H}_{\text{R}J}\left[\phi\right] =\int d\boldsymbol{r} \left\{\frac{1}{2} m_{\text{R}}\phi^2 +\frac{1}{4!}\lambda  _{\text{R}}\phi^4+\frac{1}{2} a^2 _{\text{R}}\left\lvert \nabla  \phi (\boldsymbol{r})\right\rvert^2-J(\boldsymbol{r})\phi (\boldsymbol{r})\right\}
+\end{eqnarray}
+となる。ここでの定数$m_{\text{R}},\lambda_{\text{R}},a_{\text{R}}$は$\omega \equiv (\xi_0/\xi )^{1/\nu}$\footnote{$\xi_0$は物質による定数で0.2\;nm程度となる。}を用いると
+\begin{eqnarray}
+  m_{\text{R}}=C_1 \xi_0 ^{-2}\omega^{\gamma -1}\left\lvert \tau\right\rvert ,\lambda_{\text{R}}=\frac{4\pi}{3}C_1^2 \xi_0 ^{-1}\omega^{\gamma-2\beta},a_{\text{R}}^2=C_1 \omega^{-\nu\eta }
+\end{eqnarray}
+となる。さらに臨界指数$\alpha,\beta,\gamma,\delta,\eta,\nu$と空間次元$d(=3)$の関わるscaling則は
+\begin{eqnarray}
+  \beta(1+\delta )=2\beta +\gamma=2-\alpha=\nu d ,\gamma=\nu (2-\eta)
+\end{eqnarray}
+となる。無秩序相を想定しているので換算温度$\tau = (T-T_c)/T_c$は通常は$\tau >0$となる。Orstein-Zernicke型の導出と同様にして
+\begin{eqnarray}
+  \label{相関距離2}
+  \xi^2 = \frac{a^2_{\text{R}}}{m_{\text{R}}+\frac{1}{2}\lambda_{\text{R}} \phi^2 },すなわち\omega=\left\lvert \tau\right\rvert +C_2 \omega^{1-2\beta}\phi ^2 
+\end{eqnarray}
+となる\footnote{\label{C_1,C_2}$ C_1C_2=2\pi^2  C_1^2 \xi_0/3$}。ここでの$\phi$は$\left\langle \phi\right\rangle $と同義で扱っており、$\phi$を指定した局所の自由エネルギーの和が$k_{\text{B}}T \mathcal{H}_{\text{R}J\left[\phi\right] }$と考えられる。$J=0$では$\phi = 0$となり、(\ref{相関距離2})により$\xi=\xi_0 \tau^{-\nu}$となる。このことから$\tau \rightarrow 0$の時、つまり臨界点付近で$\xi$は発散することがわかる。また、ゼロ磁場感受率$\widehat{\chi}(\boldsymbol{k})\xrightarrow{J=0,\boldsymbol{k}=0}\chi_0$は
+\begin{eqnarray}
+  \chi_0 = \frac{\xi^2}{a^2_{\text{R}}}=\frac{1}{m_{\text{R}}}\propto \tau^{-\gamma}
+\end{eqnarray}
+となりこの時も臨界点付近で発散することがわかる。この時の臨界指数$\nu,\gamma$の値に普遍性が見られる。
+
+\subsection{二成分流体}
+A、Bの二成分流体を考える。それぞれの質量密度を$\rho_{\text{A}},\rho_{\text{B}}$、化学ポテンシャルを$\mu_{\text{A}},\mu_{\text{B}}$として
+\begin{eqnarray}
+  \varphi = \rho_{\text{A}}-\rho_{\text{B}},\psi = \varphi -\varphi_{\text{c}}
+\end{eqnarray}
+秩序パラメータ$\psi$を定める。ここでの$\varphi_{\text{c}}$は臨界点での質量密度の差となる。また、$\mu_-=1/2(\mu_{\text{A}}-\mu_{\text{B}})$と定義すると、Helmholz自由エネルギー$\mathcal{F}$は容器壁との親和性を考慮して
+\begin{eqnarray}
+  \mathcal{F}=\int _Vd\boldsymbol{r}\left\{k_{\text{B}}T\left(\frac{1}{2}m_{\text{R}}\psi^2 +\frac{1}{4!}\lambda_{\text{R}}\psi^4 +\frac{a^2_{\text{R}}}{2}\left\lvert \nabla \psi\right\rvert^2 \right) +\mu_-^{\text{cc}} \varphi\right\} -\int_{\partial V} dS h\psi
+\end{eqnarray}
+と与える\footnote{$h$はserface fieldで外場にあたり、$\mu_-^{cc}$は$\psi=0$とする一様な$\mu_-$の値で$\tau$による。}。ここでの$\psi$の確率密度は
+\begin{eqnarray}
+  \label{二成分psiの確率密度}
+  \text{Prob}\left[\psi\right] \propto \exp \left[ -\frac{1}{k_{\text{B}}T}\left(\mathcal{F}-\int d\boldsymbol{r} \mu_-(\boldsymbol{r})\varphi (\boldsymbol{r})\right) \right] 
+\end{eqnarray}
+で、グランドポテンシャルにあたる項に従う確率分布となる。$h>0$の時、壁付近の表面積$\partial V$で$\psi >0 $であれば$F$が下がるので確率が上がる、つまり、A成分が壁近くで濃度が上がる。\\
+　$\mu=\mu_-^{\text{cc}}$の時の最尤を取るprofileを求める。$\tau >0$として
+\begin{eqnarray}
+  \label{f_b定義}
+  f_{\text{b}}=\frac{1}{2} k_{\text{B}} TC_1 \xi_0^{-2}\omega ^{\gamma -1}\tau \psi ^2 +\frac{1}{12} k_{\text{B}}TC_1 C_2 \xi_0 ^{-2} \omega^{\gamma -2\beta} \psi^4
+\end{eqnarray}
+とおくと、(\ref{二成分psiの確率密度})の$\psi$の依存性のある$\mathcal{F}$のみ取り出して
+\footnotesize
+\begin{eqnarray}
+  \begin{split}
+    &\mathcal{F}\left[\psi + \delta \psi\right] -\mathcal{F}\left[\psi \right] =\int_V d\boldsymbol{r} \left\{\frac{\partial f_{\text{b}}}{\partial \psi} \delta \psi + \frac{k_{\text{B}} T}{2}\frac{\partial a^2_{\text{R}}}{\partial \psi }\left\lvert \nabla \psi\right\rvert^2 \delta \psi +k_{\text{B}} T a^2_{\text{R}} (\nabla \psi)\cdot (\nabla \delta \psi)\right\}-\int _{\partial V}dS h \delta \psi +(高次微小項)\\
+    &=\int_V d\boldsymbol{r}\left\{\frac{\partial f_{\text{b}}}{\partial \psi}  + \frac{k_{\text{B}} T}{2}\frac{\partial a^2_{\text{R}}}{\partial \psi }\left\lvert \nabla \psi\right\rvert^2  -\nabla \cdot \left(k_{\text{B}} T a^2_{\text{R}} \nabla \psi\right)  \right\}\delta \psi +\int _{\partial V} dS\left( k_{\text{B}} T a^2_{\text{R}} \boldsymbol{n} \cdot \nabla \psi -h\right)\delta \psi+(高次微小項)\\
+    &=\int_V d\boldsymbol{r}\left\{\frac{\partial f_{\text{b}}}{\partial \psi}  - \frac{k_{\text{B}} T}{2}\frac{\partial a^2_{\text{R}}}{\partial \psi }\left\lvert \nabla \psi\right\rvert^2  -k_{\text{B}} T a^2_{\text{R}} \Delta \psi \right\}\delta \psi +\int _{\partial V} dS\left( k_{\text{B}} T a^2_{\text{R}} \boldsymbol{n} \cdot \nabla \psi -h\right)\delta \psi+(高次微小項)
+  \end{split}
+\end{eqnarray}
+\normalsize
+となり、最尤の$\psi$は体積積分に関する条件は
+\begin{eqnarray}
+  \label{main条件式1}
+  \frac{\partial f_{\text{b}}}{\partial \psi}  - \frac{k_{\text{B}} T}{2}\frac{\partial a^2_{\text{R}}}{\partial \psi }\left\lvert \nabla \psi\right\rvert^2  -k_{\text{B}} T a^2_{\text{R}} \Delta \psi =0
+\end{eqnarray}
+であり、表面積分に関する境界条件は
+\begin{eqnarray}
+  \label{境界条件1}
+  k_{\text{B}} T a^2_{\text{R}} \boldsymbol{n} \cdot \nabla \psi -h=0
+\end{eqnarray}
+となる。
+
+\subsection{一次元問題}
+上記の(\ref{main条件式1})、(\ref{境界条件1})を一次元問題に設定をすると、$x>0$の半無限空間で
+\begin{eqnarray}
+  \nabla \psi =\frac{\partial\psi}{\partial x},\Delta \psi =\frac{\partial ^2\psi }{\partial x^2},\boldsymbol{n}\cdot \nabla \psi= -\frac{\partial \psi}{\partial x}
+\end{eqnarray}
+と書き換えれば良いので、(\ref{main条件式1})は
+\begin{eqnarray}
+  \label{一次元問題main条件式}
+  \frac{\partial f_{\text{b}}}{\partial \psi}  - \frac{k_{\text{B}} T}{2}\frac{\partial a^2_{\text{R}}}{\partial \psi }\left(\frac{\partial\psi}{\partial x}\right)^2  -k_{\text{B}} T a^2_{\text{R}} \frac{\partial ^2 \psi}{\partial x^2} =0
+\end{eqnarray}
+となり、(\ref{境界条件1})は$x \rightarrow 0$において
+\begin{eqnarray}
+  \label{一次元問題境界条件}
+  k_{\text{B}} T a^2_{\text{R}} \frac{\partial \psi}{\partial x} +h=0
+\end{eqnarray}
+となる。(\ref{一次元問題main条件式})の両辺に$\partial \psi/\partial x$をかけると
+\begin{eqnarray}
+  \frac{d }{dx} \left(f_{\text{b}} -\frac{k_{\text{B}} T}{2}a^2 _{\text{R}}\left(\frac{\partial \psi}{\partial x}\right)^2 \right) =0
+\end{eqnarray}
+となり、$x\rightarrow \infty$の時$\psi \rightarrow 0$となることから微分の中身が0で一定となることがわかる。\\
+　ここで$\tau >0$として$\tau \gg C_2 \omega ^{1-2\beta}\psi^2$で$\psi$が十分小さい時、$\omega \fallingdotseq \tau$と近似でき$\psi^4$の項を無視できる。さらに(\ref{f_b定義})において$\eta=0,\gamma=1$として$\mu_-=\mu_-^{cc}$とするガウスモデルの時の$f_{\text{b}}$を求めると
+
+\begin{eqnarray}
+  \label{f_bガウスモデル}
+  f_{\text{b}}=\frac{1}{2} k_{\text{B}} TC_1 \xi_0^{-2}\tau \psi ^2 
+\end{eqnarray}
+$a^2_{\text{R}}=C_1$となることに注意して、上記の最尤の$\psi$が満たす方程式は
+\begin{eqnarray}
+  \label{一次元ガウスモデル条件式}
+  \left(\frac{\partial \psi}{\partial x}\right)^2 =\xi_0^{-2}\tau \psi ^2
+\end{eqnarray}
+の微分方程式と境界条件の$x\rightarrow 0$における
+\begin{eqnarray}
+  \label{一次元ガウスモデル境界条件}
+  k_{\text{B}} T C_1\frac{\partial \psi}{\partial x} +h=0
+\end{eqnarray}
+この二式となる。実際に解くと
+\begin{eqnarray}
+  \label{一次元ガウスモデルpsi}
+  \psi(x) = \frac{h\xi_0}{k_{\text{B}} T C_1 \sqrt{\tau}}\exp \left(- \sqrt{\tau} \frac{x}{\xi_0}\right)
+\end{eqnarray}
+となる\footnote{$x\rightarrow \infty$の時$\psi \rightarrow 0$となるので$\psi$は$x$の減少関数となる。}。特にNitroethane、3Methylpentaneの混合液では$T_c =\rm{300\;K},C_2 =\rm{1.05 \times 10^{-6}\;m^6/kg^2},\xi_0 =\rm{0.23\;nm}$である\footnote{\ref{C_1,C_2}にある関係から$C_1$が得られる。}。$h=\rm{1.73\times10^{-1}\;cm^3/s^2}$として$\tau =\rm{10^{-3},10^{-4}}の両方の場合に$(\ref{一次元ガウスモデルpsi})に代入すると
+
+となる\footnote{$T=T_c(1+\tau)$であるが$tau$1に比べて十分小さい時を想定しているので$T\fallingdotseq T_c=300\rm{\;K}$として計算した。}。また、これらをMathematicaを利用して図示したものを以下に示す。$\tau=10^{-4}$の時の方が減少の割合が低くなっていることがわかり、$\tau \rightarrow 0$で相関距離$\xi$及び吸着量が発散することが予想できる。
+
+
+
+\newpage 
+\chapter{量子力学}
+\section{無限小並行移動演算子}
+\section{角運動量演算子}
+
+
+\newpage
+\chapter{電磁気学}
+\section{}
+
+\newpage
+\chapter{物理数学}
+\section{Lagrangeの未定乗数法}
+
+\appendix
+\newpage
+\chapter{}
+
+\begin{thebibliography}{9}
+  \bibitem{derjaguin}B. V. Derjaguin, G. P. Sidorenkov, E. A. Zubashchenkov, and E. V. Kiseleva E V, Kolloidn. Zh. \textbf{9}, 335-347 (1947).
+  \bibitem{anderson}J. L. Anderson, M. E. Lowell, D. C. Prieve, J. Fluid Mech. \textbf{117}, 107-121 (1982).
+  \bibitem{staffeld}P. O. Staffeld, J. A. Quinn, J Colloid Interfacial Sci. \textbf{130} \textbf{88}, (1989).
+  \bibitem{PA}D. Beysens and S. Leibler, J. Physique Lett. {\textbf43}, 133-136 (1982).
+  \bibitem{applycation}S. Shin, Phys. Fluids \textbf{32}, 101302 (2020).
+  \bibitem{sugestion}Y. Fujitani, Phys. Fluids \textbf{34}, 092007 (2022).
+  \bibitem{critical exponents}A. Pelisetto and E. Vicari, Phys. Rep. 368, 549-727 (2002).
+  \bibitem{renormarized}R. Okamoto and A. Onuki, J. Chem. Phys. \textbf{136}, 114704 (2012).
+  
+\end{thebibliography}
+
+
+\end{document}
